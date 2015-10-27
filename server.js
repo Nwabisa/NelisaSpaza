@@ -27,6 +27,7 @@ var request = require('request');
  var register = require('./routes/Users');
  var usrs =require('./routes/Users');
  var searchAll = require('./routes/search');
+ var Get = require('./routes/getProduct');
 
 
 

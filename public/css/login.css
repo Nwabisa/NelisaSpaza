@@ -334,3 +334,7 @@ Animation Keyframes
     transform: rotate(360deg);
   }
 }
+a {
+  font-size: 15px;
+  color: rgba(0, 255, 253, 0.6);
+}
