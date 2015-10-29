@@ -10,11 +10,14 @@ module.exports = function (connection) {
         });   
     }
 
-     this.addCategory = function(Id, cb){
-        connection.query('insert into categories set ?', Id, function(err, categories){
+     this.addCategory = function(category_name, cb){
+        data = {
+            category_name : category_name
+        }
+        connection.query('insert into categories set ?', data, function(err, categories){
             if (err) return cb(err, null);
-            if (categories && categories.length > 0){
-                return cb(null, categories[0]);
+            if (categories){
+                return cb(null, categories);
             }
             // to do: do we want to return null!
             cb(null, null);
@@ -36,6 +39,17 @@ module.exports = function (connection) {
 
      this.deleteCategory = function(Id, cb){
         connection.query('DELETE FROM categories WHERE id = ?', Id, function(err, categories){
+            if (err) return cb(err, null);
+            if (categories && categories.length > 0){
+                return cb(null, categories[0]);
+            }
+            // to do: do we want to return null!
+            cb(null, null);
+        });   
+    }
+
+    this.searchCategory = function(Id, cb){
+        connection.query('SELECT * FROM categories WHERE category_name LIKE?', Id, function(err, categories){
             if (err) return cb(err, null);
             if (categories && categories.length > 0){
                 return cb(null, categories[0]);

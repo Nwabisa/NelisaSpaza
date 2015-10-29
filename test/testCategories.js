@@ -2,7 +2,7 @@ var mysql = require('mysql');
 var assert = require('assert');
 var ProductsDataService = require('../routes/getCategories');
 
-describe('test the ProductsDataService', function(){
+describe('test the CategoriesDataService', function(){
     // Uncomment the line below and create a connection to your mysql database
     var connection = mysql.createConnection({
     	host: 'localhost',
@@ -11,7 +11,7 @@ describe('test the ProductsDataService', function(){
     	port: 3306,
     	database: 'SpazaApp'
     });
-it('getCategory-should return categories', function(done){
+it('testing GET for categories', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.getCategory(1,function(err, categories) {
         assert.equal('Dairy Products', categories.category_name);
@@ -19,15 +19,19 @@ it('getCategory-should return categories', function(done){
     });
   });
 
-  it('addCategory', function(done){
+  it('testing ADD for categories', function(done){
       var productsDataService = new ProductsDataService(connection);
-      productsDataService.getCategory(function(err, categories) {
-        assert.equal(categories);
+      productsDataService.addCategory('chips', function(err, status) {
+
+        productsDataService.getCategory(status.insertId, function(err, categories) {       
+         // console.log("la " + categories);
+        assert.equal('chips', categories.category_name);
         done();
     });
-  }) 
+  });
+ }) 
 
-  it('updateCategory', function(done){
+  it('testing EDIT for categories', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.updateCategory(function(err, categories) {
         assert.equal(categories);
@@ -36,11 +40,20 @@ it('getCategory-should return categories', function(done){
   }) 
 
   
-  it('deleteCategory', function(done){
+  it('testing DELETE for categories', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.deleteCategory(function(err, categories) {
         assert.equal(categories);
         done();
     });
   });
+
+  it('testing SEARCH for categories', function(done){
+      var productsDataService = new ProductsDataService(connection);
+      productsDataService.searchCategory(function(err, categories) {
+        assert.equal(categories);
+        done();
+    });
   });
+
+ });

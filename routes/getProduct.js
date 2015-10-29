@@ -41,27 +41,17 @@ module.exports = function(connection){
         });   
     }
 
-
-  //  this.getSales = function(Id, cb, err){
-  //       if (err) return cb(err, null);
-  //       connection.query('SELECT Id,sale_price, no_sold,product_Id  FROM sales WHERE Id = ?', Id, function(err, categories){
-  //           if (categories && categories.length > 0){
-  //               return cb(null, categories[0]);
-  //           }
-  //           // to do: do we want to return null!
-  //           cb(null, null);
-  //       });   
-  //   }
- 
-  // this.updateSales = function(Id, cb, err){
-  //       if (err) return cb(err, null);
-  //       connection.query('UPDATE sales SET ? WHERE Id = ?', Id, function(err, categories){
-  //           if (categories && categories.length > 0){
-  //               return cb(null, categories[0]);
-  //           }
-  //           // to do: do we want to return null!
-  //           cb(null, null);
-  //       });   
-  //   }
-
+this.searchProduct = function(Id, cb){
+        connection.query('SELECT Id,product_name, category_name FROM (SELECT  products.Id,products.product_name, categories.category_name, products.Category_Id FROM products, categories  where products.Category_Id = categories.Id) AS prods_cats WHERE product_name LIKE ? OR category_name LIKE ?', Id, function(err, products){
+           if (err) return cb(err, null);
+           connection.query('SELECT Id, category_name FROM categories', Id, function(error, categories) {
+                if (error) return next(error);
+            if (products && products.length > 0){
+                return cb(null, products[0]);
+            }
+            // to do: do we want to return null!
+            cb(null, null);
+        });   
+    });
+    };
 }

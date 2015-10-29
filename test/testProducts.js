@@ -12,16 +12,16 @@ describe('test the ProductsDataService', function(){
     	database: 'SpazaApp'
     });
 
-    it('getProduct should return a specific product', function(done){
+    it('testing GET for products', function(done){
      var productsDataService = new ProductsDataService(connection);
      productsDataService.getProduct(2, function(err, products) {
-        //console.log("me " + products);
+      console.log(products)
         assert.equal('Imasi', products.product_name);
         done();
     });
  });
 
-    it('addProduct should return a specific product', function(done){
+    it('testing ADD for products', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.addProduct(function(err, products) {
         assert.equal(products);
@@ -29,7 +29,7 @@ describe('test the ProductsDataService', function(){
     });
   });
 
-     it('updateProduct', function(done){
+     it('testing UPDATE for products', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.updateProduct(function(err, products) {
         assert.equal(products);
@@ -37,7 +37,7 @@ describe('test the ProductsDataService', function(){
     });
   });
 
-   it('deleteProduct', function(done){
+   it('testing DELETE for products', function(done){
       var productsDataService = new ProductsDataService(connection);
       productsDataService.deleteProduct(function(err, products) {
         assert.equal(products);
@@ -45,53 +45,12 @@ describe('test the ProductsDataService', function(){
     });
   }); 
 
-  // it('getCategory-should return categories', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.getCategory(1,function(err, categories) {
-  //       assert.equal('Dairy Products', categories.category_name);
-  //       done();
-  //   });
-  // });
-
-  // it('addCategory', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.getCategory(function(err, categories) {
-  //       assert.equal(categories);
-  //       done();
-  //   });
-  // }) 
-
-  // it('updateCategory', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.updateCategory(function(err, categories) {
-  //       assert.equal(categories);
-  //       done();
-  //   });
-  // }) 
-
   
-  // it('deleteCategory', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.deleteCategory(function(err, categories) {
-  //       assert.equal(categories);
-  //       done();
-  //   });
-  // }) 
-
-  //  it('getSales', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.getSales(1,function(err, sales) {
-  //       assert.equal(1, sales.product_Id);
-  //       done();
-  //   });
-  // })
-   
-  //   it('updateSales', function(done){
-  //     var productsDataService = new ProductsDataService(connection);
-  //     productsDataService.updateSales(function(err, sales) {
-  //       assert.equal(sales);
-  //       done();
-  //   });
-  // })
-
+    it('testing SEARCH for products', function(done){
+      var productsDataService = new ProductsDataService(connection);
+      productsDataService.searchProduct(function(err, products) {
+        assert.equal(products);
+        done();
+    });
+  });
 });
